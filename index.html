@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Mundial 2026 - Fase de grupos</title>
+    <style>
+        /* Estilos Generales y Estética Mejorada */
+        :root {
+            --primary-color: #0d233a;
+            --accent-color: #00bf63;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a4a6e);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-weight: 400;
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        hr {
+            border: none;
+            height: 5px;
+            background: linear-gradient(to right, #0052b4, #ffffff, #d80027); /* Colores representativos de los anfitriones */
+            margin: 0;
+        }
+
+        /* Menú de Navegación Fijo e Interactivo */
+        nav {
+            background-color: rgba(13, 35, 58, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border-radius: 20px;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Efecto interactivo: Se mueven al apoyar el mouse */
+        nav a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 191, 99, 0.4);
+        }
+
+        /* Contenedores y Secciones */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 30px auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            scroll-margin-top: 140px; /* Evita que el menú tape el título al scrollear */
+        }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .group-title {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tablas Estilizadas con Banderas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background-color: #f1f1f1;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .flag {
+            width: 24px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+        }
+
+        /* Sección Mapas y Predicción */
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: none;
+            width: 100%;
+            max-width: 700px;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .prediction-box {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+
+        .prediction-box h2 {
+            color: #ffdf00;
+            margin-top: 25px;
+            font-size: 1.4em;
+        }
+
+        .prediction-box p {
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: rgba(255,255,255,0.1);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 5px;
+        }
+
+        .btn-predict {
+            background-color: #009b3a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-predict:hover {
+            transform: scale(1.1) translateY(-3px);
+            background-color: #00bf63;
+        }
+
+        /* --- ANIMACIONES Y ELEMENTOS FLOTANTES CONSTANTES --- */
+        /* Mascotas en los costados */
+        .mascot-side {
+            position: fixed;
+            top: 15%;
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.85;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        /* Usamos el logo/mascota oficial del Mundial 2026 */
+        .mascot-left {
+            left: 20px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/43/2026_FIFA_World Cup_Logo.svg');
+            animation: floatMascotLeft 6s ease-in-out infinite;
+        }
+        .mascot-right {
+            right: 20px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/43/2026_FIFA_World_Cup_Logo.svg');
+            animation: floatMascotRight 7s ease-in-out infinite;
+        }
+
+        @keyframes floatMascotLeft {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(100px) rotate(-5deg); }
+        }
+        @keyframes floatMascotRight {
+            0%, 100% { transform: translateY(200px) rotate(-5deg); }
+            50% { transform: translateY(0) rotate(5deg); }
+        }
+
+        /* Elementos flotantes continuos en el Inicio (Header) */
+        .bg-animation-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            font-size: 24px;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-450px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Sistema de Confeti / Pelotas */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fly 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes fly {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--mx), var(--my)) rotate(var(--mr)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mascot-side mascot-left"></div>
+    <div class="mascot-side mascot-right"></div>
+
+    <header id="inicio">
+        <div class="bg-animation-container">
+            <span class="floating-item" style="left: 5%; animation-delay: 0s;">⚽</span>
+            <span class="floating-item" style="left: 15%; animation-delay: 3s;">🇲🇽</span>
+            <span class="floating-item" style="left: 25%; animation-delay: 1s;">🇺🇸</span>
+            <span class="floating-item" style="left: 35%; animation-delay: 5s;">🇨🇦</span>
+            <span class="floating-item" style="left: 45%; animation-delay: 2s;">⚽</span>
+            <span class="floating-item" style="left: 55%; animation-delay: 6s;">🇦🇷</span>
+            <span class="floating-item" style="left: 65%; animation-delay: 0.5s;">⚽</span>
+            <span class="floating-item" style="left: 75%; animation-delay: 4s;">🇪🇸</span>
+            <span class="floating-item" style="left: 85%; animation-delay: 1.5s;">⚽</span>
+            <span class="floating-item" style="left: 95%; animation-delay: 3.5s;">🇧🇷</span>
+        </div>
+
+        <h1>Mundial 2026 - Fase de Grupos</h1>
+        <h2>En este mundial 2026, que se realizará desde el día 11 de Junio, se enfrentarán 48 selecciones, donde una se coronará como campeón mundial. Este año la sede se dividirá en tres países anfitriones: Estados Unidos, México y Canadá.</h2>
+    </header>
+    <hr/>
+
+    <nav>
+        <a onclick="scrollToSection('inicio')">Inicio</a>
+        <a onclick="scrollToSection('grupoA')">Grupo A</a>
+        <a onclick="scrollToSection('grupoB')">Grupo B</a>
+        <a onclick="scrollToSection('grupoC')">Grupo C</a>
+        <a onclick="scrollToSection('grupoD')">Grupo D</a>
+        <a onclick="scrollToSection('grupoE')">Grupo E</a>
+        <a onclick="scrollToSection('grupoF')">Grupo F</a>
+        <a onclick="scrollToSection('grupoG')">Grupo G</a>
+        <a onclick="scrollToSection('grupoH')">Grupo H</a>
+        <a onclick="scrollToSection('grupoI')">Grupo I</a>
+        <a onclick="scrollToSection('grupoJ')">Grupo J</a>
+        <a onclick="scrollToSection('grupoK')">Grupo K</a>
+        <a onclick="scrollToSection('grupoL')">Grupo L</a>
+        <a onclick="scrollToSection('ciudadSede')">Ciudad Sede</a>
+        <a onclick="scrollToSection('miPrediccion')">Mi Predicción</a>
+    </nav>
+
+    <div class="container">
+        
+        <img src="https://www.pagina12.com.ar/resizer/v2/236JHP6DPZFNDHAVL2UD7GIZXM.jpg?quality=75&auth=62b2aaf533ca6e37255dc169884b39412ebb5da20aac820bd35a0410f67f1ad4&width=720" alt="Esta es una foto que representa el mundial 2026" class="hero-img">
+
+        <div class="section-card">
+            <div class="group-grid">
+                
+                <div id="grupoA" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo A</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/mx.svg" alt="México">México</td><td>CONCACAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/za.svg" alt="Sudáfrica">Sudáfrica</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/kr.svg" alt="Corea del Sur">Corea del Sur</td><td>AFC</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/cz.svg" alt="Chequia">Chequia</td><td>UEFA</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoB" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo B</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ca.svg" alt="Canadá">Canadá</td><td>CONCACAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ch.svg" alt="Suiza">Suiza</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ba.svg" alt="Bosnia">Bosnia y Herz.</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/qa.svg" alt="Qatar">Qatar</td><td>AFC</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoC" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo C</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/br.svg" alt="Brasil">Brasil</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ma.svg" alt="Marruecos">Marruecos</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/gb-sct.svg" alt="Escocia">Escocia</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ht.svg" alt="Haití">Haití</td><td>CONCACAF</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoD" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo D</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/us.svg" alt="Estados Unidos">Estados Unidos</td><td>CONCACAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/py.svg" alt="Paraguay">Paraguay</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/au.svg" alt="Australia">Australia</td><td>AFC</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/tr.svg" alt="Turquía">Turquía</td><td>UEFA</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoE" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo E</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/de.svg" alt="Alemania">Alemania</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ec.svg" alt="Ecuador">Ecuador</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ci.svg" alt="Costa de Marfil">Costa de Marfil</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/cw.svg" alt="Curazao">Curazao</td><td>CONCACAF</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoF" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo F</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/nl.svg" alt="Países Bajos">Países Bajos</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/jp.svg" alt="Japón">Japón</td><td>AFC</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/se.svg" alt="Suecia">Suecia</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/tn.svg" alt="Túnez">Túnez</td><td>CAF</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoG" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo G</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/be.svg" alt="Bélgica">Bélgica</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/eg.svg" alt="Egipto">Egipto</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ir.svg" alt="Irán">Irán</td><td>AFC</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/nz.svg" alt="Nueva Zelanda">Nueva Zelanda</td><td>OFC</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoH" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo H</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/es.svg" alt="España">España</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/uy.svg" alt="Uruguay">Uruguay</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/sa.svg" alt="Arabia Saudita">Arabia Saudita</td><td>AFC</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/cv.svg" alt="Cabo Verde">Cabo Verde</td><td>CAF</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoI" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo I</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/fr.svg" alt="Francia">Francia</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/no.svg" alt="Noruega">Noruega</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/sn.svg" alt="Senegal">Senegal</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/iq.svg" alt="Irak">Irak</td><td>AFC</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoJ" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo J</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/ar.svg" alt="Argentina">Argentina</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/dz.svg" alt="Argelia">Argelia</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/at.svg" alt="Austria">Austria</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/jo.svg" alt="Jordania">Jordania</td><td>AFC</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoK" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo K</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/co.svg" alt="Colombia">Colombia</td><td>CONMEBOL</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/pt.svg" alt="Portugal">Portugal</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/cd.svg" alt="República del Congo">R. del Congo</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/uz.svg" alt="Uzbekistán">Uzbekistán</td><td>AFC</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="grupoL" class="section-card" style="padding:15px; margin:0;">
+                    <div class="group-title">Grupo L</div>
+                    <table>
+                        <thead>
+                            <tr><th>Selección</th><th>Confederación</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><img class="flag" src="https://flagcdn.com/hr.svg" alt="Croacia">Croacia</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/gb-eng.svg" alt="Inglaterra">Inglaterra</td><td>UEFA</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/gh.svg" alt="Ghana">Ghana</td><td>CAF</td></tr>
+                            <tr><td><img class="flag" src="https://flagcdn.com/pa.svg" alt="Panamá">Panamá</td><td>CONCACAF</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="ciudadSede" class="section-card">
+            <h2 style="color: var(--primary-color); font-size: 1.8em; text-align: center; font-weight: bold; margin-bottom: 20px;">Mapas Kansas City</h2>
+            <iframe src="https://maps.google.com/maps?q=Kansas%20City&t=&z=13&ie=UTF8&iwloc=&output=embed" height="400" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div id="miPrediccion" class="section-card prediction-box">
+            <h1 style="color: white; font-size: 2.2em;">Mi Predicción para el Mundial 2026</h1>
+            
+            <h2>¿Qué selección será campeona?</h2>
+            <p>🇦🇷 Argentina</p>
+            
+            <h2>¿Qué dos selecciones jugarán la final?</h2>
+            <p>Argentina vs España 🇪🇸</p>
+            
+            <h2>¿Qué jugador podría destacarse durante el torneo?</h2>
+            <p>Lionel Messi 🐐</p>
+            <br>
+            <button class="btn-predict" onclick="triggerArgentinaConfetti(event)">¡Activar Predicción Albiceleste!</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Función de desplazamiento suave
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            // Lanzar pelotitas al clickear en el menú
+            triggerBallConfetti(window.event);
+        }
+
+        // Efecto Pelotas de Fútbol
+        function triggerBallConfetti(e) {
+            if (!e) return;
+            const x = e.clientX || window.innerWidth / 2;
+            const y = e.clientY || window.innerHeight / 2;
+            
+            for (let i = 0; i < 15; i++) {
+                const ball = document.createElement('div');
+                ball.className = 'particle';
+                ball.innerHTML = '⚽';
+                ball.style.left = x + 'px';
+                ball.style.top = y + 'px';
+                
+                // Direcciones aleatorias de explosión
+                const mx = (Math.random() - 0.5) * 300;
+                const my = (Math.random() - 0.5) * 300 - 100; // Tienden a subir un poco
+                const mr = Math.random() * 720;
+                
+                ball.style.setProperty('--mx', `${mx}px`);
+                ball.style.setProperty('--my', `${my}px`);
+                ball.style.setProperty('--mr', `${mr}deg`);
+                
+                document.body.appendChild(ball);
+                setTimeout(() => ball.remove(), 1200);
+            }
+        }
+
+        // Efecto Confeti de Argentina (Celeste, Blanco y Sol/Oro)
+        function triggerArgentinaConfetti(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            const colors = ['#74ACDF', '#FFFFFF', '#F6B40E']; // Celeste, Blanco, Sol
+            
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'particle';
+                
+                // Alternar formas (cuadrados de color y emojis)
+                if(i % 5 === 0) {
+                    confetti.innerHTML = '⚽';
+                } else if (i % 6 === 0) {
+                    confetti.innerHTML = '☀️';
+                } else {
+                    confetti.style.width = '12px';
+                    confetti.style.height = '12px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0px';
+                }
+                
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                
+                const mx = (Math.random() - 0.5) * 500;
+                const my = (Math.random() - 0.5) * 500 - 150;
+                const mr = Math.random() * 1000;
+                
+                confetti.style.setProperty('--mx', `${mx}px`);
+                confetti.style.setProperty('--my', `${my}px`);
+                confetti.style.setProperty('--mr', `${mr}deg`);
+                
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 1200);
+            }
+        }
+    </script>
+</body>
+</html>
